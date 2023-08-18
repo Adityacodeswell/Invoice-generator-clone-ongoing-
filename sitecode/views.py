@@ -1,49 +1,67 @@
 from django.contrib import messages
-from django.contrib.auth import login,authenticate
 from django.shortcuts import render, redirect
-from .forms import UserRegForm
+from django.contrib.auth.models import User
+from .models import *
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 
+from .forms import *
 
 def Home(request):
     return render(request,'home.html',{})
 
 
+@login_required(login_url= '/login/')
+def home(request):
+    return render(request, 'home.html')
 
-def register_request(request):
-    if request.method == "POST":
-        form = UserRegForm(request.POST)
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+
+def log_in(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.get_user()
             login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect("home")
+            return redirect('/')
         else:
-            messages.error(request, "Unsuccessful registration. Invalid information.")
+            messages.error(request, 'Invalid/Incorrect Username or Password')
+            return redirect('/login/')
     else:
-        form = UserRegForm()
-    
-    return render(request, "register.html", {"register_form": form})
+        form = AuthenticationForm()
+
+    return render(request, 'login.html', {'form': form})
 
 
-def login_request(request):
-	if request.method == "POST":
-		form = AuthenticationForm(request, data=request.POST)
-		if form.is_valid():
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				login(request, user)
-				messages.info(request, f"You are now logged in as {username}.")
-				return redirect("login")
+def log_out(request):
+    logout(request)
+    return redirect('/')
 
-			else:
-				messages.error(request,"Invalid username or password.")
-		else:
-			messages.error(request,"Invalid username or password.")
-	form = AuthenticationForm()
-	return render(request=request, template_name="login.html", context={"login_form":form})
+def Signup(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
 
+        user = User.objects.filter(username = username)
 
+        if user.exists():
+            messages.error(request, 'This username is already exist')
+            return redirect('/signup/')
 
+        user = User.objects.create(
+            first_name = first_name,
+            last_name = last_name,
+            username = username,
+            email = email,
+        )
+        user.set_password(password)
+        user.save()
+
+        messages.info(request, 'Account created Successfulyy!!')
+        return redirect('home')
+    return render(request, 'signup.html')

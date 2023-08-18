@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    <div class="signup">
+        <div class="signup-box">
+            <form action="" method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <h1>Signup</h1>
+
+                {% if messages %}
+                <div role="alert">
+                    {% for message in messages %}
+                    {{message}}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="box box1">
+                    <label for="">First Name</label>
+                    <input required name="first_name" type="text">
+                </div>
+                <div class="box box2">
+                    <label for="">Last Name</label>
+                    <input required name="last_name" type="text">
+                </div>
+                <div class="box box3">
+                    <label for="">Username</label>
+                    <input required name="username" type="text">
+                </div>
+                <div class="box box4">
+                    <label for="">Email</label>
+                    <input required name="email" type="email">
+                </div>
+                <div class="box box5">
+                    <label for="">Create a Password</label>
+                    <input required name="password" type="password">
+                </div>
+                <button type="submit" class="signup-btn">Signup</button>
+                <p class="not">Already have an account? <a href="{% url 'login' %}">sign in</a></p>
+            </form>
+        </div>
+    </div>
+
+{% endblock body %}

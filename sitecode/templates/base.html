@@ -1,53 +1,66 @@
-{% load static  %}
+{% load static%}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NITDC {% block title %}{% endblock title %}</title>
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{% static 'css/styles.css' %} " rel="stylesheet" />
-    <style>{% block css %}{% endblock css %}</style>
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
 </head>
+
 <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand font-weight-bold " href="#">Netcore</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-                
-                    
-                    <button class="btn btn-outline-success" href="{% url 'login' %}">Login</button>
-                
+
+    <header>
+        <div class="header">
+            <div class="main-header">
+                <div class="header-content">
+                    <div class="left-block">
+                        <div class="head-block">
+                            <h2>Logo</h3>
+                        </div>
+                        <div class="head-block">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="">About</a></li>
+                                <li><a href="">Invoice</a></li>
+                                <li><a href="">Contact</a></li>
+                                <li><a href="{% url 'signup' %}">Signup</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="right-block">
+                        <div class="title-data">
+                            <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+                        </div>
+                        <div class="auth-data">
+                            {% if request.user.is_authenticated %}
+                            <div class="head-block">
+                                <a href="{% url 'logout' %}" class="header-btn">Logout</a>
+                            </div>
+                            {% else %}
+                            <div class="head-block">
+                                <a href="{% url 'login' %}" class="header-btn">Login</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-
-
-    {% block body %}{% endblock body %}
-
-
-
+    {% block body %}
     
-                    
-    <script src="{% static 'js/scripts.js' %}"></script>
-    
-    
+    {% endblock body %}
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
 
 </body>
+
 </html>

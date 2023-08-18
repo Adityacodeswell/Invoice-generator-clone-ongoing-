@@ -1,17 +1,19 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
-class UserRegForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    
+class UserLogin(AuthenticationForm, forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
-        
-    def save(self, commit=True):
-        user = super(UserRegForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-        return user
+        fields = ['username', 'password']
+
+        labels = {
+            'username': 'UserID',
+            'password': 'Password'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(UserLogin, self).__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['class'] = 'form-control'

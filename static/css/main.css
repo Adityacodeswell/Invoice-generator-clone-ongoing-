@@ -1,0 +1,152 @@
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+li{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.header{
+    background: rgba(128, 128, 128, 0.377);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.main-header{
+    width: 1300px;
+    margin: auto;
+    padding: auto;
+}
+.header-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.left-block ul{
+    display: flex;
+    gap: 20px;
+    font-size: 17px;
+    text-transform: uppercase;
+    color: black;
+    font-weight: bolder;
+}
+.header-btn{
+    padding: 10px 15px;
+    background: purple;
+    color: white;
+    font-size: 17px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+
+/* login page */
+
+.login,
+.signup{
+    height: 90vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+}
+.login-box,
+.signup-box{
+    width: 400px;
+    padding: 20px 30px;
+    background: rgba(128, 128, 128, 0.377);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.signup-box{
+    height: 550px;
+    padding: 10px 30px;
+}
+.signup-box form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.login-box form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-title{
+    text-align: center;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.box label{
+    font-size: 18px;
+    font-weight: bold;
+}
+.box input{
+    border: none;
+    padding: 10px 5px;
+    border-radius: 5px;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    border: 1px solid grey;
+}
+.login-btn,
+.signup-btn{
+    width: 80px;
+    margin: auto;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background: purple;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.login-box form a,
+.signup-box form a{
+    color: purple;
+    font-weight: bolder;
+}
+form .not{
+    text-align: center;
+}
+
+.home{
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 1300px;
+    margin: auto;
+}
+.home-data{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+.home-cards{
+    border: 1px solid grey;
+    padding: 30px 20px;
+}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="client">
+    <div class="client-content">
+        <div class="client-data">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="client-matter">
+                    <h1>Add Client Details</h1>
+                    <div class="client-input">
+                        <div class="client-div">
+                            <label for="">Company Name: </label>
+                            <input name="comp_name" required type="text">
+                        </div>
+                        <div class="client-div">
+                            <label for="">GST Number: </label>
+                            <input name="gst" required type="number">
+                        </div>
+                        <div class="client-div">
+                            <label for="">Country: </label>
+                            <input name="country" required type="text">
+                        </div>
+                        <div class="client-div">
+                            <label for="">State:</label>
+                            <input name="state" required type="text">
+                        </div>
+                        <div class="client-div">
+                            <label for="">Address:</label>
+                            <input name="address" required type="text">
+                        </div>
+                        <button type="submit">Submit</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                    <h1><a href="{% url 'service' %}">Add Service Details</a></h1>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

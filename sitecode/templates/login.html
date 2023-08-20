@@ -1,18 +1,35 @@
 {% extends "base.html" %}
+{% block body %}
 
-{% block body %}      
+<div class="login">
+    <div class="login-box">
+        <form action="" method="post">
+            {% csrf_token %}
+            <h1 class="login-title">Login</h1>
 
+            {% if messages %}
+            <div role="alert">
+                {% for message in messages %}
+                {{message}}
+                {% endfor %}
+            </div>
+            {% endif %}
 
+            <div class="box box-1">
+                <label for="">Username</label>
+                <input required name="username" type="text" placeholder="enter your username">
+            </div>
+            <div class="box box-2">
+                <label for="">Password</label>
+                <input required name="password" type="password" placeholder="enter your password">
+            </div>
+            <button class="login-btn" type="submit">Login</button>
+            <p class="not">Not have an account? <a href="{% url 'signup' %}"  style="color: rgb(44, 48, 255);">Sign up</a></p>
+        </form>
 
-<!--Login--> 
-<div class="container py-5">
-  <h1>Login</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary" type="submit">Login</button>
-  </form>
-  <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+        <!-- {{form}} -->
+
+    </div>
 </div>
 
-{% endblock %}
+{% endblock body %}

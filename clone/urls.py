@@ -24,7 +24,12 @@ urlpatterns = [
     path('signup/', Signup, name='signup'),
     path('login/', log_in, name='login'),
     path('logout/', log_out, name='logout'),
+    path('dashboard/' , Dashboard , name= 'dashboard'),
     path('invoice/', invoice, name='invoice'),
-    path('add_service/', add_service, name='addService'),
     path('service/', service, name='service'),
+    path('clientdetails/', addClient, name='clientdetail'),
+    path('update_client/<int:item_id>/', update_client, name='update_client'),
+    path('delete_client/<int:item_id>/', delete_client, name='delete_client'),
+
+    
 ]

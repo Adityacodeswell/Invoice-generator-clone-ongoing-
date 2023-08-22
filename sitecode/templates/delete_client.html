@@ -40,25 +40,16 @@
 
 {% endblock css %}
 
+
+
 {% block body %}
 
-<div class="add-service">
-    <div class="ser-content">
-        <div class="ser-data">
-            <form action="" method="post">
-                {% csrf_token %}
-                
-
-                {{ servicefm.as_p }}
-                <input type="submit" value="Submit">
-                <input type="reset" value="Reset">
-            </form>
-        </div>
-    </div>
-</div>
-
-<br>
-<br>
-<a href="{% url 'invoice' %}" class="header-btn">Back</a>
+<h2>Delete Client</h2>
+<p>Are you sure you want to delete the client record "{{ client.comp2_name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="header-btn" style="background: red;">Delete</button>
+    <a href="{% url 'clientdetail' %}" class="header-btn">Cancel</a>
+</form>
 
 {% endblock body %}

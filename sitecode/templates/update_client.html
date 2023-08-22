@@ -40,25 +40,20 @@
 
 {% endblock css %}
 
+
+
+
 {% block body %}
 
-<div class="add-service">
-    <div class="ser-content">
-        <div class="ser-data">
-            <form action="" method="post">
-                {% csrf_token %}
-                
 
-                {{ servicefm.as_p }}
-                <input type="submit" value="Submit">
-                <input type="reset" value="Reset">
-            </form>
-        </div>
-    </div>
-</div>
-
+<h2>Update Client</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Update</button>
+</form>
 <br>
 <br>
-<a href="{% url 'invoice' %}" class="header-btn">Back</a>
+<a href="{% url 'clientdetail' %}" class="header-btn">Back</a>
 
 {% endblock body %}

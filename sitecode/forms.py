@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Service , Add_service
+from .models import Service , AddClient
 
 class UserLogin(AuthenticationForm, forms.ModelForm):
     class Meta:
@@ -21,21 +21,20 @@ class UserLogin(AuthenticationForm, forms.ModelForm):
         
 class ClientData(forms.ModelForm):
     class Meta:
-        model = Add_service
-        fields = ('client', 'comp2_name', 'handle_by', 'email', 'phone', 'account')
-        
-        def __init__(self, *args, **qwargs):
-            super().__init__(*args, **qwargs)
-            self.fields['service'].queryset = Service.objects.none()
+        model = AddClient  
+        fields = ('client', 'comp2_name', 'handle_by', 'email', 'phone', 'account', 'ifsc', 'bank', 'gst')  # Include all fields
 
-            if 'client' in self.data:
-                try:
-                    client_id = int(self.data.get('client'))
-                    self.fields['service'].queryset = Service.objects.filter(client_id = client_id).order_by('comp2_name')
-                except (ValueError, TypeError):
-                    pass
-            elif self.instance.pk:
-                self.fields['service'].queryset = self.instance.client.service_set.order_by('comp2_name')
+    def __init__(self, *args, **kwargs):
+        super(ClientData, self).__init__(*args, **kwargs)
+        self.fields['client'].widget.attrs['class'] = 'form-control'
+        self.fields['comp2_name'].widget.attrs['class'] = 'form-control'
+        self.fields['handle_by'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['phone'].widget.attrs['class'] = 'form-control'
+        self.fields['account'].widget.attrs['class'] = 'form-control'
+        self.fields['ifsc'].widget.attrs['class'] = 'form-control'  
+        self.fields['bank'].widget.attrs['class'] = 'form-control'
+        self.fields['gst'].widget.attrs['class'] = 'form-control'
 
 
 class ServiceForm(forms.ModelForm):

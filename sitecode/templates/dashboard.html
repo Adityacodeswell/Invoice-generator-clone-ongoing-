@@ -1,1 +1,40 @@
-<h1>task done </h1>
+{% extends "base.html" %}
+{% block body %}
+
+<div class="center">
+    <div class="container">
+
+        <div class="card">
+            <img src="addservice.png" alt="Service" style="width:100%">
+            <div class="container">
+                <a href="{% url 'invoice' %}" class="header-btn">Service</a>
+                
+            </div>
+        </div>
+    
+        <div class="card">
+            <img src="addservice.png" alt="Service" style="width:100%">
+            <div class="container">
+                <a href="{% url 'clientdetail' %}" class="header-btn">Client</a>
+               
+            </div>
+        </div>
+        <div class="card">
+            <img src="addservice.png" alt="Service" style="width:100%">
+            <div class="container">
+                <a href="" class="header-btn">Provider</a>
+                
+            </div>
+        </div>
+        <div class="card">
+            <img src="addservice.png" alt="Service" style="width:100%">
+            <div class="container">
+                <a href="" class="header-btn">Finalize</a>
+                
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+{% endblock body %}

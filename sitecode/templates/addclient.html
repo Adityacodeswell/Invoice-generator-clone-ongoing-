@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+<style>
+    form {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+</style>
+
+{% endblock css %}
+
+{% block body %}
+
+<h2>Add Client</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="provider">
+    <h1>Add Service Provider</h1>
+    <div class="provider-data">
+        <table border="2px">
+            <tr>
+                <th>Company Name</th>
+                <th>Handle By</th>
+                <th>Phone No.</th>
+                <th>Client</th>
+                <th>Action</th>
+            </tr>
+            {% for i in providerObj %}
+            <tr>
+                <td>{{i.comp2_name}}</td>
+                <td>{{i.handle_by}}</td>
+                <td>{{i.phone}}</td>
+                <td>{{i.client}}</td>
+                <td>
+                    <a href="{% url 'delete_client' i.id %}" class="header-btn" style="background: red;">Delete</a>
+                    <a href="{% url 'update_client' i.id %}" class="header-btn" style="background: orange;">Update</a>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+<br>
+<br>
+<a href="{% url 'dashboard' %}" class="header-btn">Dashboard</a>
+
+{% endblock body %}

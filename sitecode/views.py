@@ -1,12 +1,13 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-
 from .forms import *
+from .models import AddClient
+
 
 def Home(request):
     return render(request,'home.html',{})
@@ -64,6 +65,9 @@ def Signup(request):
         return redirect('home')
     return render(request, 'signup.html')
 
+def Dashboard(request):
+    return render(request , 'dashboard.html')
+
 def invoice(request):
     if request.method == 'POST':
         comp_name = request.POST.get('comp_name')
@@ -87,36 +91,6 @@ def invoice(request):
     
    
 
-def add_service(request):
-    form = ClientData()
-    serviceObj = Add_service.objects.all()
-    if request.method == 'POST':
-        
-        form = ClientData(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('addService')
-
-        client = request.POST.get('client')
-        comp2_name = request.POST.get('comp2_name')
-        handle_by = request.POST.get('handle_by')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        account = request.POST.get('account')
-
-        user = Add_service.objects.create(
-            client = client,
-            comp2_name = comp2_name,
-            handle_by = handle_by,
-            email = email,
-            phone = phone,
-            account = account,
-        )
-        user.save()
-        # queryset = Add_service.objects.all()
-        # context = {'service' : queryset}
-    return render(request, 'addService.html', {'form': form, 'serviceObj':serviceObj})
-
 def service(request):
     servicefm = ServiceForm()
     if request.method == 'POST':
@@ -137,5 +111,47 @@ def service(request):
         )
         user.save()
     return render(request, 'service.html', {'servicefm': servicefm})
+
+def addClient(request):
+    providerObj = AddClient.objects.all()
+    if request.method == 'POST':
+        form = ClientData(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  
+    else:
+        form = ClientData()
+    
+    context = {'form': form, 'providerObj': providerObj}
+    
+    return render(request, 'addclient.html', context)  
+
+ 
+
+def update_client(request, item_id):
+    client = AddClient.objects.get(pk=item_id)
+    
+    if request.method == 'POST':
+        form = ClientData(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = ClientData(instance=client)
+    
+    context = {'form': form}
+    return render(request, 'update_client.html', context)
+
+def delete_client(request, item_id):
+    client = AddClient.objects.get(pk=item_id)
+    if request.method == 'POST':
+        client.delete()
+        return redirect('dashboard')
+    
+    context = {'client': client}
+    return render(request, 'delete_client.html', context)
+
+    
+
 
 
